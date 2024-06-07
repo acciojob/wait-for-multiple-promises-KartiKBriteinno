@@ -1,6 +1,6 @@
-//your JS code here. If required.
 document.addEventListener("DOMContentLoaded", () => {
   const outputElement = document.getElementById("output");
+  const loadingElement = document.getElementById("loading");
 
   // Helper function to create a promise that resolves after a random time between 1 and 3 seconds
   function createPromise(name) {
@@ -27,15 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalTime = ((endTime - startTime) / 1000).toFixed(3);
 
     // Clear the loading text
-    outputElement.innerHTML = "";
+    if (loadingElement) {
+      outputElement.removeChild(loadingElement);
+    }
 
     // Add rows for each promise result
-    results.forEach((result) => {
+    results.forEach((result, index) => {
       const row = document.createElement("tr");
       const nameCell = document.createElement("td");
       const timeCell = document.createElement("td");
 
-      nameCell.textContent = result.name;
+      nameCell.textContent = `Promise ${index + 1}`;
       timeCell.textContent = result.time.toFixed(3);
 
       row.appendChild(nameCell);
